@@ -30,12 +30,60 @@ class DailySummaryCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Daily Summary',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: colorScheme.onPrimaryContainer,
-                  fontWeight: FontWeight.bold
-                ),
+              Row(
+                children: [
+                  Text(
+                    'Daily Summary',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: colorScheme.onPrimaryContainer,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                        color: colorScheme.primary.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Text(
+                      date,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: LinearProgressIndicator(
+                      value: completedTasks / totalTasks,
+                      minHeight: 20,
+                      backgroundColor: colorScheme.surface.withOpacity(0.2),
+                      valueColor: AlwaysStoppedAnimation(colorScheme.primary),
+                    ),
+                  ),
+                 
+                ],
+              ),
+             const SizedBox(height: 24,),
+              Row(
+                children: [
+                 const Icon(Icons.check_circle,),
+                 const SizedBox(width: 8,),
+                  Text(
+                    '$completedTasks / $totalTasks',
+                    style: TextStyle(
+                      color: colorScheme.onPrimaryContainer,
+
+                    ),
+                  )
+                ],
               )
             ],
           ),
