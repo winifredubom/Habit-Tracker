@@ -9,12 +9,13 @@ class HabitCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
+      child: ListView.separated(
+        separatorBuilder: (context, index) => const SizedBox(height: 16),
         itemCount: 10,
         itemBuilder: (context, index) => 
          HabitCard(
           title: 'Habit $index',
-          streak: 2,
+          streak: 10,
           progress: 0.5,
           habitId: 'Habit $index',
           isCompleted: index % 2 == 0,
