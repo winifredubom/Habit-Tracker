@@ -3,11 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/modules/screens/components/daily_summary_card.dart';
 import 'package:habit_tracker/modules/screens/components/habit_card_lisr.dart';
 import 'package:habit_tracker/modules/screens/components/timeline_view.dart';
-import 'package:flutter/material.dart';
-import 'package:habit_tracker/modules/screens/components/daily_summary_card.dart';
-import 'package:habit_tracker/modules/screens/components/habit_card_lisr.dart';
-import 'package:habit_tracker/modules/screens/components/timeline_view.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final selectedDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
 
