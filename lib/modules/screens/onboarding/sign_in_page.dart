@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:habit_tracker/modules/screens/components/google_in_button.dart';
+import 'package:habit_tracker/modules/screens/onboarding/auth_page.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// Define the authErrorProvider
+final authErrorProvider = StateProvider<String?>((ref) => null);
+
+// Define the authLoadingProvider
+final authLoadingProvider = StateProvider<bool>((ref) => false);
 
 class SignInScreen extends ConsumerWidget {
+  SignInScreen({super.key});
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-
     return Scaffold(
-      appBar: AppBar(title: Text('Sign In')),
+      appBar: AppBar(title: const Text('Sign In')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -18,15 +28,15 @@ class SignInScreen extends ConsumerWidget {
           children: [
             TextField(
               controller: emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email'),
               keyboardType: TextInputType.emailAddress,
             ),
             TextField(
               controller: passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Consumer(
               builder: (context, ref, _) {
                 final isLoading = ref.watch(authLoadingProvider);
@@ -42,39 +52,45 @@ class SignInScreen extends ConsumerWidget {
                           try {
                             final authService =
                                 ref.read(authServiceProvider);
-                            await authService.signIn(email, password);
+                            await authService.signInWithEmail(email, password);
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Signed In!')),
+                              const SnackBar(content: Text('Signed In!')),
                             );
+                            context.go('/home');
                           } catch (e) {
-                            ref.read(authErrorProvider.notifier).state =
-                                e.toString();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error: $e')),
+                            );
                           } finally {
                             ref.read(authLoadingProvider.notifier).state =
                                 false;
                           }
                         },
                   child: isLoading
-                      ? CircularProgressIndicator(color: Colors.white)
-                      : Text('Sign In'),
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text('Sign In'),
                 );
               },
             ),
-            SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: () async {
-                try {
-                  await ref.read(authServiceProvider).signInWithGoogle();
-                } catch (e) {
-                  ref.read(authErrorProvider.notifier).state = e.toString();
-                }
+            const SizedBox(height: 16),
+            const GoogleSignInButton(), // Custom reusable Google sign-in button
+            const SizedBox(height: 16),
+            Consumer(
+              builder: (context, ref, _) {
+                final error = ref.watch(authErrorProvider);
+
+                return error != null
+                    ? Text(
+                        error,
+                        style: const TextStyle(color: Colors.red),
+                      )
+                    : const SizedBox.shrink();
               },
-              icon: Icon(Icons.login),
-              label: Text('Sign In with Google'),
             ),
+            const SizedBox(height: 16),
             TextButton(
               onPressed: () => context.go('/sign-up'),
-              child: Text("Don't have an account? Sign Up"),
+              child: const Text("Don't have an account? Sign Up"),
             ),
           ],
         ),
