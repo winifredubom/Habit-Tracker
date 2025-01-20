@@ -1,8 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habit_tracker/modules/screens/components/google_in_button.dart';
-import 'package:habit_tracker/modules/screens/onboarding/auth_page.dart';
+import 'package:habit_tracker/core/auth/auth_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Define the authErrorProvider

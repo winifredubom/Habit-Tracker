@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habit_tracker/modules/screens/onboarding/auth_page.dart';
+import 'package:habit_tracker/core/auth/auth_page.dart';
 
 class GoogleSignInButton extends ConsumerWidget {
   const GoogleSignInButton({super.key});
@@ -33,7 +33,7 @@ class GoogleSignInButton extends ConsumerWidget {
           final user = await authService.signInWithGoogle();
           if (user != null) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Welcome, ${user.displayName ?? "User"}!')),
+              SnackBar(content: Text('Welcome, ${user.user?.displayName ?? "User"}!')),
             );
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
