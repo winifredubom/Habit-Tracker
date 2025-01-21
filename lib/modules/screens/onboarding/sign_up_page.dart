@@ -34,12 +34,12 @@ class SignUpScreen extends ConsumerWidget {
                 labelText: 'Email',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide:const  BorderSide(color: Colors.blue, width: 2),
+                  borderSide: const BorderSide(color: Colors.blue, width: 2),
                 ),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-           const  SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               controller: passwordController,
               decoration: InputDecoration(
@@ -58,7 +58,7 @@ class SignUpScreen extends ConsumerWidget {
                 labelText: 'Confirm Password',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide:const  BorderSide(color: Colors.blue, width: 2),
+                  borderSide: const BorderSide(color: Colors.blue, width: 2),
                 ),
               ),
               obscureText: true,
@@ -71,10 +71,10 @@ class SignUpScreen extends ConsumerWidget {
 
                 return Container(
                   decoration: BoxDecoration(
-                   gradient: LinearGradient(
-                colors: [colorScheme.primary, colorScheme.secondary],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight),
+                    gradient: LinearGradient(
+                        colors: [colorScheme.primary, colorScheme.secondary],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ElevatedButton(
@@ -125,13 +125,17 @@ class SignUpScreen extends ConsumerWidget {
                           },
                     child: isLoading
                         ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text('Sign Up', style: TextStyle(color: Colors.white),),
+                        : const Text(
+                            'Sign Up',
+                            style: TextStyle(color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                          ),
                   ),
                 );
               },
             ),
             const SizedBox(height: 16),
-            const GoogleSignInButton(), 
+            const GoogleSignInButton(),
             const SizedBox(height: 16),
             Consumer(
               builder: (context, ref, _) {
@@ -148,7 +152,15 @@ class SignUpScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             TextButton(
               onPressed: () => context.go('/sign-in'),
-              child: const Text('Already have an account? Sign In'),
+              style: TextButton.styleFrom(
+                foregroundColor: colorScheme.primary,
+                
+              ),
+              child: const  Text('Already have an account? Sign In',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16
+              ),),
             ),
           ],
         ),

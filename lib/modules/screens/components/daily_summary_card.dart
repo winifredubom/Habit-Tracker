@@ -21,7 +21,7 @@ class DailySummaryCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final completionRate = totalTasks > 0 ? (completedTasks / totalTasks) : 0.0;
-    final formattedDate = DateFormat('EEEE, MMMM d').format(date);
+    final formattedDate = DateFormat('EEEE, MMM d').format(date);
 
     return Card(
       elevation: 8,
@@ -48,7 +48,6 @@ class DailySummaryCard extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Daily Progress',
@@ -56,12 +55,11 @@ class DailySummaryCard extends ConsumerWidget {
                             color: colorScheme.onPrimary,
                             fontWeight: FontWeight.bold,
                           ),
+                          overflow: TextOverflow.ellipsis,
                     ),
+                    const SizedBox(width: 8,),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
+                      padding:const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: colorScheme.primary.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
@@ -72,6 +70,7 @@ class DailySummaryCard extends ConsumerWidget {
                           color: colorScheme.onPrimary,
                           fontWeight: FontWeight.w600,
                         ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -79,7 +78,6 @@ class DailySummaryCard extends ConsumerWidget {
                 const SizedBox(height: 24),
                 Stack(
                   children: [
-                    // Background progress bar
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: LinearProgressIndicator(
@@ -91,7 +89,6 @@ class DailySummaryCard extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    // Percentage text overlay
                     Positioned.fill(
                       child: Center(
                         child: Text(

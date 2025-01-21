@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/modules/provider/providers.dart';
 import 'package:habit_tracker/modules/screens/components/daily_summary_card.dart';
 import 'package:habit_tracker/modules/screens/components/habit_card.dart';
+import 'package:habit_tracker/modules/screens/components/sign_out_dialog.dart';
 import 'package:habit_tracker/modules/screens/components/timeline_view.dart';
+import 'package:habit_tracker/modules/screens/home/new_habit_dialog.dart';
 
 final selectedDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
 
@@ -18,7 +20,16 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Habit Tracker')),
+        title: const Center(child: Text('Habit Tracker'), ),
+        actions: [
+          IconButton( onPressed: () {
+    showDialog(
+      context: context,
+      builder: (context) => const SignOutDialog(),
+    );
+  },
+           icon:const Icon(Icons.person_2_rounded, size: 30,))
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -35,7 +46,6 @@ class HomePage extends ConsumerWidget {
                 totalTasks: stats.totalTasks,
                 date: selectedDate,
                 onTap: () {
-                  // Optional: Add action when card is tapped
                 },
               ),
               const SizedBox(height: 16),
@@ -65,7 +75,6 @@ class HomePage extends ConsumerWidget {
                               selectedDate,
                             ),
                             onEdit: () {
-                              // TODO: Implement edit functionality
                             },
                             onDelete: () => habitRepository.deleteHabit(habit.id),
                           );
@@ -80,9 +89,12 @@ class HomePage extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Show dialog to add new habit
-        },
+         onPressed: () {
+    showDialog(
+      context: context,
+      builder: (context) => NewHabitDialog(),
+    );
+  },
         child: const Icon(Icons.add),
       ),
     );

@@ -1,6 +1,4 @@
 
-// components/enhanced_habit_card.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -84,7 +82,6 @@ class HabitCard extends ConsumerWidget {
                 children: [
                   Row(
                     children: [
-                      // Completion checkbox
                       Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
@@ -111,7 +108,6 @@ class HabitCard extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(width: 16),
-                      // Habit title and streak
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,7 +147,6 @@ class HabitCard extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      // Edit button
                       IconButton(
                         icon: const Icon(Icons.edit_outlined),
                         onPressed: onEdit,

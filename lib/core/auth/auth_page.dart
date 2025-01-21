@@ -8,7 +8,7 @@ class AuthService {
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  // Email and Password Sign-In
+
   Future<User?> signInWithEmail(String email, String password) async {
     try {
       final UserCredential userCredential =
@@ -18,17 +18,12 @@ class AuthService {
       );
       return userCredential.user;
     } catch (e) {
-      rethrow; // Throw errors to handle them in the UI
+      rethrow; 
     }
   }
 
-  // Email and Password Sign-Up
   Future<UserCredential> signUpWithEmail(String email, String password) async {
     try {
-      // final UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-      //   email: email,
-      //   password: password,
-      // );
       return await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } catch (e) {
@@ -37,20 +32,15 @@ class AuthService {
     }
   }
 
-  // Google Sign-In
-
   Future<UserCredential?> signInWithGoogle() async {
     try {
-      // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser == null) return null;
 
-      // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
 
-      // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -63,25 +53,7 @@ class AuthService {
       rethrow;
     }
   }
-  // Future<User?> signInWithGoogle() async {
-  //   try {
-  //     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-  //     if (googleUser != null) {
-  //       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-  //       final AuthCredential credential = GoogleAuthProvider.credential(
-  //         accessToken: googleAuth.accessToken,
-  //         idToken: googleAuth.idToken,
-  //       );
-
-  //       final UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
-  //       return userCredential.user;
-  //     }
-  //     return null; // User canceled the sign-in
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
 
   // Sign Out
   Future<void> signOut() async {

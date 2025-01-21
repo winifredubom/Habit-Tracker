@@ -21,21 +21,35 @@ class SignInScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign In')),
+      appBar: AppBar(title: const Text('Sign In', style: TextStyle(fontSize: 35, fontWeight: FontWeight.w600),)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
+             TextField(
               controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+              decoration: InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide:const  BorderSide(color: Colors.blue, width: 2),
+                ),
+              ),
               keyboardType: TextInputType.emailAddress,
             ),
+            const SizedBox(height: 16),
             TextField(
               controller: passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.blue, width: 2),
+                ),
+              ),
               obscureText: true,
             ),
             const SizedBox(height: 16),
@@ -55,9 +69,7 @@ class SignInScreen extends ConsumerWidget {
                             final authService =
                                 ref.read(authServiceProvider);
                             await authService.signInWithEmail(email, password);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Signed In!')),
-                            );
+                           
                             context.go('/home');
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -70,12 +82,14 @@ class SignInScreen extends ConsumerWidget {
                         },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text('Sign In'),
+                      : const Text('Sign In',
+                      style: TextStyle(color: Colors.white,
+                            fontWeight: FontWeight.bold),),
                 );
               },
             ),
             const SizedBox(height: 16),
-            const GoogleSignInButton(), // Custom reusable Google sign-in button
+            const GoogleSignInButton(), 
             const SizedBox(height: 16),
             Consumer(
               builder: (context, ref, _) {
@@ -92,7 +106,16 @@ class SignInScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             TextButton(
               onPressed: () => context.go('/sign-up'),
-              child: const Text("Don't have an account? Sign Up"),
+               style: TextButton.styleFrom(
+                foregroundColor: colorScheme.primary,
+                
+              ),
+              child: const Text("Don't have an account? Sign Up",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16
+              ),
+              ),
             ),
           ],
         ),

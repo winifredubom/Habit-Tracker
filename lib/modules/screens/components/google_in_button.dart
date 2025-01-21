@@ -16,10 +16,10 @@ class GoogleSignInButton extends ConsumerWidget {
         shaderCallback: (Rect bounds) {
           return const  LinearGradient(
             colors: [
-              Color(0xFF4285F4), // Blue
-              Color(0xFF34A853), // Green
-              Color(0xFFFBBC05), // Yellow
-              Color(0xFFEA4335), // Red
+              Color(0xFF4285F4), 
+              Color(0xFF34A853),
+              Color(0xFFFBBC05), 
+              Color(0xFFEA4335),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
